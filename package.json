@@ -1,0 +1,26 @@
+{
+  "name": "turbo-starter",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "commitlint": "commitlint --edit",
+    "format": "pnpm biome format",
+    "format:write": "pnpm biome format --write",
+    "prepare": "lefthook install"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "klarity": "^0.0.3",
+    "lefthook": "^1.10.11",
+    "turbo": "^2.3.1",
+    "typescript": "^5.7.3"
+  },
+  "packageManager": "pnpm@9.4.0",
+  "engines": {
+    "node": ">=18"
+  }
+}

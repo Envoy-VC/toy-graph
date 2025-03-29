@@ -1,0 +1,44 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "extends": ["klarity/biome"],
+  "files": {
+    "ignore": ["**/_generated/**"]
+  },
+  "linter": {
+    "rules": {
+      "correctness": {
+        "noUndeclaredDependencies": "off"
+      }
+    }
+  },
+  "overrides": [
+    {
+      // Needed for Page/Layout/Error/NotFound components default export
+      "include": [
+        "./src/app/**/page.tsx",
+        "./src/app/**/layout.tsx",
+        "./src/app/**/not-found.tsx",
+        "./src/app/**/*error.tsx",
+        "./src/app/**/opengraph-image.tsx"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    },
+    {
+      "include": ["apps/web/src/env.js"],
+      "linter": {
+        "rules": {
+          "style": {
+            // Needed for env naming convention
+            "useNamingConvention": "off"
+          }
+        }
+      }
+    }
+  ]
+}
