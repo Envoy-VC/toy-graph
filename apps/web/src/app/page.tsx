@@ -1,9 +1,11 @@
-import { Button } from '@repo/ui/components/button';
+'use client';
+
+import { Canvas } from '~/components/canvas';
 
 const Home = () => {
   return (
-    <div>
-      <Button variant='default'>Hello World</Button>
+    <div className='h-screen w-full'>
+      <Canvas />
     </div>
   );
 };

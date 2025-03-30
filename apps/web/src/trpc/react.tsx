@@ -3,10 +3,7 @@
 import { type ReactNode, useMemo } from 'react';
 
 import { type QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import {
-  unstable_httpBatchStreamLink as httpBatchStreamLink,
-  loggerLink,
-} from '@trpc/client';
+import { httpBatchStreamLink, loggerLink } from '@trpc/client';
 import { createTRPCReact } from '@trpc/react-query';
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import { SuperJSON } from 'superjson';
