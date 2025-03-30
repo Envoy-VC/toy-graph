@@ -1,36 +1,9 @@
 import type { NamedArrayTuple } from '@react-three/drei/helpers/ts-utils';
 import type { ThreeElements } from '@react-three/fiber';
 import { useLayoutEffect, useMemo, useRef } from 'react';
-import { type ExtrudeGeometry, Shape } from 'three';
+import type { ExtrudeGeometry } from 'three';
 import { toCreasedNormals } from 'three-stdlib';
-
-const eps = 0.00001;
-
-function createTrapeziumShape(
-  width: number,
-  side1: number,
-  side2: number,
-  radius0: number
-) {
-  const shape = new Shape();
-  const radius = radius0 - eps;
-
-  const slope = (side2 - side1) / width;
-  const angle = Math.PI / 2 + Math.atan(slope);
-
-  shape.absarc(eps, eps, eps, -Math.PI / 2, -Math.PI, true);
-  shape.absarc(eps, side1 - radius * 2, eps, Math.PI, angle, true);
-  shape.absarc(
-    width - radius * 2,
-    side2 - radius * 2,
-    eps,
-    (7 * Math.PI) / 10,
-    0,
-    true
-  );
-  shape.absarc(width - radius * 2, eps, eps, 0, -Math.PI / 2, true);
-  return shape;
-}
+import { createTrapeziumShape, eps } from '~/helpers/three';
 
 export type RoundedTrapeziumProps = {
   args?: NamedArrayTuple<
@@ -79,7 +52,6 @@ export const RoundedTrapezium = ({
     if (geomRef.current) {
       geomRef.current.center();
       toCreasedNormals(geomRef.current, creaseAngle);
-      geomRef.current.translate(0, Math.abs(side1 - side2) / 2, 0);
     }
   }, [shape, params]);
 
