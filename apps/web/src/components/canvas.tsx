@@ -1,43 +1,43 @@
-import { CameraControls } from '@react-three/drei';
-import { Canvas as ThreeCanvas } from '@react-three/fiber';
-import { RoundedTrapezium } from './rounded-trapezium';
+'use client';
 
-const activityMatrix = {
-  rows: 7,
-  columns: 7,
-  data: [
-    [0, 1, 1, 2, 2, 3, 0],
-    [1, 2, 2, 3, 3, 3, 1],
-    [1, 2, 4, 4, 4, 3, 1],
-    [0, 1, 3, 5, 3, 2, 0],
-    [0, 1, 2, 4, 4, 2, 0],
-    [1, 2, 3, 3, 3, 2, 1],
-    [0, 1, 2, 2, 1, 1, 0],
-  ],
-};
+import { CameraControls, Environment } from '@react-three/drei';
+import { Canvas as ThreeCanvas } from '@react-three/fiber';
+import { Perf } from 'r3f-perf';
+import { DEG2RAD } from 'three/src/math/MathUtils.js';
+import { ActivityGraphInstanced } from './activity-graph-instanced';
+import { Ground } from './ground';
+import { Lights } from './lights';
+import { data } from './test';
 
 export const Canvas = () => {
   return (
-    <ThreeCanvas
-      camera={{ position: [1.5, 1.5, 1.5], near: 1, far: 1000 }}
-      style={{ backgroundColor: '#D0D1B9' }}
-    >
-      <ambientLight intensity={0.5} />
-      <directionalLight
-        position={[30, 30, 30]}
-        intensity={0.8}
-      />
-      <RoundedTrapezium
-        args={[1, 1, 1.5, 1]}
-        position={[0, 0, 0]}
-        radius={0.1}
+    <>
+      <ThreeCanvas
+        shadows={true}
+        camera={{ position: [40, 20, -10], fov: 60 }}
+        className='bg-[#303035]'
       >
-        <meshPhongMaterial
-          color='#f3f3f3'
-          wireframe={true}
+        <Lights />
+
+        <group position={[data.weeks.length / 2, 0, 0]}>
+          <ActivityGraphInstanced data={data} />
+          <Ground />
+          <Environment
+            preset='forest'
+            background={false}
+          />
+        </group>
+        <CameraControls
+          makeDefault={true}
+          maxPolarAngle={80 * DEG2RAD}
+          minPolarAngle={0 * DEG2RAD}
+          minAzimuthAngle={-Math.PI}
+          maxAzimuthAngle={Math.PI}
+          minDistance={10}
+          maxDistance={50}
         />
-      </RoundedTrapezium>
-      <CameraControls />
-    </ThreeCanvas>
+        <Perf />
+      </ThreeCanvas>
+    </>
   );
 };
