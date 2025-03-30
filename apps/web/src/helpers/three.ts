@@ -1,14 +1,26 @@
-import { Color } from 'three';
+import { Shape } from 'three';
 
-export const getColorFromHeight = (height: number) => {
-  const lowColor = new Color('#B2D980'); // Very Low
-  const midLowColor = new Color('#72C554'); // Low
-  const midHighColor = new Color('#279C36'); // Medium
-  const highColor = new Color('#136823'); // High
+export const eps = 0.00001;
 
-  if (height <= 1) return lowColor;
-  if (height <= 2) return lowColor.lerp(midLowColor, (height - 1) / 1);
-  if (height <= 3) return midLowColor.lerp(midHighColor, (height - 2) / 1);
-  if (height <= 5) return midHighColor.lerp(highColor, (height - 3) / 2);
-  return highColor; // Cap at highest color
-};
+export function createTrapeziumShape(
+  width: number,
+  side1: number,
+  side2: number,
+  radius0: number
+) {
+  const shape = new Shape();
+  const radius = radius0 - eps;
+  const dip = side1 === side2 ? 0 : 0.05;
+  const insetY = radius * 2 + 3 * eps;
+  const insetX = eps;
+
+  const slope = (side2 - side1) / width;
+  const angle = Math.PI / 2 + Math.atan(slope);
+
+  shape.absarc(eps, eps, eps, -Math.PI / 2, -Math.PI, true);
+  shape.absarc(eps, side1 - radius * 2, eps, Math.PI, angle, true);
+  shape.absarc(width - radius * 2, side2 - radius * 2, eps, angle, 0, true);
+  shape.absarc(width - radius * 2, eps, eps, 0, -Math.PI / 2, true);
+
+  return shape;
+}
