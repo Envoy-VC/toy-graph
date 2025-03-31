@@ -1,6 +1,6 @@
 'use client';
 
-import { Canvas } from '~/components/canvas';
+import { Canvas } from '~/three/canvas';
 
 const Home = () => {
   return (

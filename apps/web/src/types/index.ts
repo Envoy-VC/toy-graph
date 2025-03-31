@@ -1,4 +1,6 @@
 export interface ContributionData {
+  year: number;
+  username: string;
   totalContributions: number;
   weeks: Week[];
 }

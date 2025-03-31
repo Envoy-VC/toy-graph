@@ -16,9 +16,7 @@ export type GroupedTrapInstancesProps = {
   creaseAngle?: number;
 };
 
-export const ActivityGraphInstanced = ({
-  data,
-}: { data: ContributionData }) => {
+export const ActivityGraph = ({ data }: { data: ContributionData }) => {
   const groups = groupTrapProps(getInstancesData(data));
 
   return (
