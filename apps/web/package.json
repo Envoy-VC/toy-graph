@@ -30,6 +30,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "server-only": "^0.0.1",
+    "simplex-noise": "^4.0.3",
     "sonner": "^2.0.2",
     "superjson": "^2.2.2",
     "three": "0.174.0",

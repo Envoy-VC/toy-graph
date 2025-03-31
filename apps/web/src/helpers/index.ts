@@ -61,7 +61,7 @@ export const getInstancesData = (data: ContributionData) => {
       // biome-ignore lint/style/noNonNullAssertion: safe
       const day = week.contributionDays[dayIndex]!;
       const multiplier = 0.1;
-      const z = Number(((7 - day.weekday) * 1.05).toFixed(2));
+      const z = Number((7 - day.weekday).toFixed(2));
       const x = getWeekNumber(day.date);
 
       const offset = getMonthNumber(day.date);
