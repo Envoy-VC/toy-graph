@@ -61,10 +61,10 @@ export const getInstancesData = (data: ContributionData) => {
       // biome-ignore lint/style/noNonNullAssertion: safe
       const day = week.contributionDays[dayIndex]!;
       const multiplier = 0.1;
-      const z = Number((7 - day.weekday).toFixed(2));
-      const x = getWeekNumber(day.date);
-
+      const z = 4 - Number((7 - day.weekday).toFixed(2));
+      const weekNumber = getWeekNumber(day.date);
       const offset = getMonthNumber(day.date);
+      const x = -(weekNumber + offset);
       const absHeight = day.contributionCount * multiplier;
       const previousDayHeight =
         (week.contributionDays[dayIndex - 1]?.contributionCount ?? 0) *
@@ -81,7 +81,7 @@ export const getInstancesData = (data: ContributionData) => {
 
       res.push({
         args: [1, side1, side2, 1],
-        position: [-(x + offset), Math.max(side1, side2) / 2, z],
+        position: [x, Math.max(side1, side2) / 2, z],
         color: day.color,
       });
     }

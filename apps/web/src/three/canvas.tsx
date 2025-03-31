@@ -8,8 +8,8 @@ export const Canvas = () => {
     <>
       <ThreeCanvas
         shadows={true}
-        camera={{ position: [10, 20, 0], fov: 60 }}
-        className='bg-[#303035]'
+        camera={{ position: [-50, 20, 30], fov: 60 }}
+        className='bg-[#E9E3C7]'
       >
         <Environment />
         <Experience />

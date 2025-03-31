@@ -18,8 +18,8 @@ export const Ground = () => {
         args={[30, 30]}
         position={[0, 0, 0]}
         infiniteGrid={true}
-        sectionColor='#9d4b4b'
-        cellColor='#6f6f6f'
+        sectionColor='#033316'
+        cellColor='#4D9F37'
       />
     </>
   );

@@ -1,5 +1,5 @@
 export const Lights = () => {
-  const directionalLightPosition = [30, 20, 20] as const;
+  const directionalLightPosition = [-30, 20, -20] as const;
 
   return (
     <>
@@ -9,6 +9,7 @@ export const Lights = () => {
           castShadow={true}
           position={directionalLightPosition}
           intensity={1}
+          color='#9ECE5F'
         />
         <mesh position={directionalLightPosition}>
           <sphereGeometry args={[0.5, 16, 16]} />

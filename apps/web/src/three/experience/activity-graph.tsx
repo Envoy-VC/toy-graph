@@ -62,6 +62,8 @@ export const GroupInstance = ({ group }: GroupInstanceProps) => {
       {groupTraps.map((trap, i) => {
         return (
           <Instance
+            castShadow={true}
+            receiveShadow={true}
             key={i.toString()}
             position={trap.position}
             rotation={[0, Math.PI / 2, 0]}
