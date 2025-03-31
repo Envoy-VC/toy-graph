@@ -1,4 +1,4 @@
-import { endOfYear, getISOWeek, parseISO, startOfYear } from 'date-fns';
+import { getISOWeek, parseISO } from 'date-fns';
 
 import type {
   ContributionData,
@@ -6,21 +6,18 @@ import type {
   RoundedTrapeziumInstanceProps,
 } from '~/types';
 
-export const getWeekAndMonthNumber = (dateString: string) => {
-  const date = parseISO(dateString);
+export const getMonthNumber = (dateStringUTC: string) => {
+  const date = parseISO(dateStringUTC);
   return {
     weekNumber: getISOWeek(date),
-    monthNumber: date.getUTCMonth() + 1,
+    monthNumber: date.getMonth() + 1,
   };
 };
 
 export const getYearBounds = (year: number) => {
-  const start = startOfYear(new Date(year, 0, 1)).toISOString();
-  const end = endOfYear(new Date(year, 11, 31)).toISOString();
-  return {
-    start,
-    end,
-  };
+  const start = new Date(Date.UTC(year, 0, 1, 0, 0, 0)).toISOString();
+  const end = new Date(Date.UTC(year, 11, 31, 23, 59, 59)).toISOString();
+  return { start, end };
 };
 
 export const getSideLengths = (
@@ -30,24 +27,32 @@ export const getSideLengths = (
 ) => {
   const threshold = 3 / 10;
 
-  const adjustHeight = (height: number, reference: number) =>
-    Math.abs(height - reference) >= threshold && reference !== 0
-      ? Math.max(height, reference)
-      : height;
+  const adjustHeight = (height: number, reference: number) => {
+    const adjusted =
+      Math.abs(height - reference) >= threshold &&
+      reference !== 0 &&
+      height !== 0
+        ? Math.max(height, reference)
+        : height;
 
-  const side1 = adjustHeight(absHeight, previousHeight) + 0.2;
-  const side2 = adjustHeight(absHeight, nextHeight) + 0.2;
+    return adjusted + 0.2;
+  };
+
+  const side1 = adjustHeight(absHeight, previousHeight);
+  const side2 = adjustHeight(absHeight, nextHeight);
 
   return {
-    side1,
-    side2,
+    side1: Number(side1.toFixed(2)),
+    side2: Number(side2.toFixed(2)),
   };
 };
 
 export const getInstancesData = (data: ContributionData) => {
   const res: RoundedTrapeziumInstanceProps[] = [];
 
-  for (const week of data.weeks) {
+  for (let weekIndex = 0; weekIndex < data.weeks.length; weekIndex++) {
+    // biome-ignore lint/style/noNonNullAssertion: safe
+    const week = data.weeks[weekIndex]!;
     for (
       let dayIndex = 0;
       dayIndex < week.contributionDays.length;
@@ -56,9 +61,10 @@ export const getInstancesData = (data: ContributionData) => {
       // biome-ignore lint/style/noNonNullAssertion: safe
       const day = week.contributionDays[dayIndex]!;
       const multiplier = 0.1;
-      const z = 4 - Number((7 - day.weekday).toFixed(2));
-      const { weekNumber, monthNumber } = getWeekAndMonthNumber(day.date);
+
+      const { monthNumber } = getMonthNumber(day.date);
       const absHeight = day.contributionCount * multiplier;
+
       const previousDayHeight =
         (week.contributionDays[dayIndex - 1]?.contributionCount ?? 0) *
         multiplier;
@@ -72,8 +78,9 @@ export const getInstancesData = (data: ContributionData) => {
         nextDayHeight
       );
 
-      const x = -(weekNumber + monthNumber);
-      const y = Math.max(side1, side2) / 2;
+      const x = -66 + (weekIndex + monthNumber);
+      const y = Number((Math.max(side1, side2) / 2).toFixed(2));
+      const z = 3 - day.weekday;
 
       res.push({
         args: [1, side1, side2, 1],
@@ -91,7 +98,7 @@ export const groupTrapProps = (
 ): GroupedTrapeziumInstanceProps[] => {
   const groups: Record<string, RoundedTrapeziumInstanceProps[]> = {};
   for (const trap of traps) {
-    const key = `${trap.args[1]}-${trap.args[2]}`;
+    const key = `${trap.args[1]}-${trap.args[2]}-${trap.color}`;
     if (!groups[key]) groups[key] = [];
     groups[key].push(trap);
   }

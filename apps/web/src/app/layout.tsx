@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import { TRPCReactProvider } from '~/trpc/react';
 
 import type { ReactNode } from 'react';
+import { Toaster } from 'sonner';
+
 import '@repo/ui/globals.css';
 
 export const metadata: Metadata = {
@@ -18,7 +20,10 @@ const RootLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
       lang='en'
     >
       <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        <TRPCReactProvider>
+          <main>{children}</main>
+        </TRPCReactProvider>
+        <Toaster richColors={true} />
       </body>
     </html>
   );

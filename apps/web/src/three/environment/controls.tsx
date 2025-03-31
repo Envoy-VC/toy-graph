@@ -14,7 +14,10 @@ export const Controls = () => {
         minDistance={10}
         maxDistance={50}
       />
-      <Perf />
+      <Perf
+        position='top-left'
+        className={process.env.NODE_ENV === 'development' ? 'block' : 'hidden'}
+      />
     </>
   );
 };

@@ -1,10 +1,12 @@
 'use server';
 
+import { type ResultAsync, err, ok } from 'neverthrow';
 import { env } from '~/env';
-import type { ContributionResponse } from '~/types';
+import type { ContributionData, ContributionResponse } from '~/types';
+
 import { getYearBounds } from '.';
 
-export const GET_CONTRIBUTIONS_QUERY = `query($username: String!, $from: DateTime!, $to: DateTime!) {
+const GET_CONTRIBUTIONS_QUERY = `query($username: String!, $from: DateTime!, $to: DateTime!) {
   user(login: $username) {
     contributionsCollection(from: $from, to: $to) {
       contributionCalendar {
@@ -32,7 +34,9 @@ interface GetUserContributionsProps {
 export const getUserContributions = async ({
   username,
   year,
-}: GetUserContributionsProps) => {
+}: GetUserContributionsProps): Promise<
+  ResultAsync<ContributionData, string>
+> => {
   const { start, end } = getYearBounds(year);
   const res = await fetch('https://api.github.com/graphql', {
     method: 'POST',
@@ -54,8 +58,14 @@ export const getUserContributions = async ({
   const data = (await res.json()) as ContributionResponse;
 
   if ('errors' in data) {
-    throw new Error(data.errors.message);
+    return err(data.errors[0]?.message ?? 'Unknown error');
   }
 
-  return data.data.user.contributionsCollection.contributionCalendar;
+  const result: ContributionData = {
+    username,
+    year,
+    ...data.data.user.contributionsCollection.contributionCalendar,
+  };
+
+  return ok(result);
 };

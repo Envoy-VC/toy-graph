@@ -32,7 +32,7 @@ export type SuccessContributionResponse = {
   data: {
     user: {
       contributionsCollection: {
-        contributionCalendar: ContributionData;
+        contributionCalendar: Omit<ContributionData, 'username' | 'year'>;
       };
     };
   };
@@ -50,7 +50,7 @@ export type ErrorContributionResponse = {
       column: number;
     }[];
     message: string;
-  };
+  }[];
 };
 
 export type ContributionResponse =

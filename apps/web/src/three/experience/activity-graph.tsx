@@ -34,6 +34,8 @@ export const GroupInstance = ({ group }: GroupInstanceProps) => {
 
   return (
     <Instances
+      key={`${group.key}-${groupTraps.length}`}
+      frustumCulled={false}
       geometry={geometry}
       limit={groupTraps.length}
       material={
