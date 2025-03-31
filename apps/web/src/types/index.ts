@@ -27,3 +27,32 @@ export type GroupedTrapeziumInstanceProps = {
   key: string;
   instances: RoundedTrapeziumInstanceProps[];
 };
+
+export type SuccessContributionResponse = {
+  data: {
+    user: {
+      contributionsCollection: {
+        contributionCalendar: ContributionData;
+      };
+    };
+  };
+};
+
+export type ErrorContributionResponse = {
+  data: {
+    user: null;
+  };
+  errors: {
+    type: string;
+    path: string[];
+    locations: {
+      line: number;
+      column: number;
+    }[];
+    message: string;
+  };
+};
+
+export type ContributionResponse =
+  | SuccessContributionResponse
+  | ErrorContributionResponse;

@@ -4,6 +4,7 @@ import { z } from 'zod';
 export const env = createEnv({
   server: {
     NODE_ENV: z.enum(['development', 'test', 'production']),
+    GITHUB_ACCESS_TOKEN: z.string().min(1),
   },
   client: {},
   experimental__runtimeEnv: {},

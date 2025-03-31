@@ -47,13 +47,12 @@ export const RoundedTrapezium = ({
   // biome-ignore lint/style/noNonNullAssertion: safe
   const geomRef = useRef<ExtrudeGeometry>(null!);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: safe
   useLayoutEffect(() => {
     if (geomRef.current) {
       geomRef.current.center();
       toCreasedNormals(geomRef.current, creaseAngle);
     }
-  }, [shape, params]);
+  }, [creaseAngle]);
 
   return (
     <mesh

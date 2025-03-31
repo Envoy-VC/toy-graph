@@ -1,52 +1,47 @@
+import { endOfYear, getISOWeek, parseISO, startOfYear } from 'date-fns';
+
 import type {
   ContributionData,
   GroupedTrapeziumInstanceProps,
   RoundedTrapeziumInstanceProps,
 } from '~/types';
 
-export const getWeekNumber = (dateString: string) => {
-  const date = new Date(dateString);
-  const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
-  const diffInDays = Math.floor(
-    (date.getTime() - yearStart.getTime()) / (24 * 60 * 60 * 1000)
-  );
-
-  return Math.ceil((diffInDays + yearStart.getUTCDay() + 1) / 7);
+export const getWeekAndMonthNumber = (dateString: string) => {
+  const date = parseISO(dateString);
+  return {
+    weekNumber: getISOWeek(date),
+    monthNumber: date.getUTCMonth() + 1,
+  };
 };
 
-export const getMonthNumber = (dateString: string) => {
-  const date = new Date(dateString);
-  return date.getUTCMonth() + 1;
+export const getYearBounds = (year: number) => {
+  const start = startOfYear(new Date(year, 0, 1)).toISOString();
+  const end = endOfYear(new Date(year, 11, 31)).toISOString();
+  return {
+    start,
+    end,
+  };
 };
 
 export const getSideLengths = (
   absHeight: number,
   previousHeight: number,
   nextHeight: number
-): [number, number] => {
-  let side1: number;
-  let side2: number;
-
-  const prevHightDiff = Math.abs(absHeight - previousHeight);
+) => {
   const threshold = 3 / 10;
 
-  if (prevHightDiff >= threshold && previousHeight !== 0) {
-    side1 = Math.max(previousHeight, absHeight);
-  } else {
-    side1 = absHeight;
-  }
+  const adjustHeight = (height: number, reference: number) =>
+    Math.abs(height - reference) >= threshold && reference !== 0
+      ? Math.max(height, reference)
+      : height;
 
-  const nextHightDiff = Math.abs(nextHeight - absHeight);
-  if (nextHightDiff >= threshold && nextHeight !== 0) {
-    side2 = Math.max(nextHeight, absHeight);
-  } else {
-    side2 = absHeight;
-  }
+  const side1 = adjustHeight(absHeight, previousHeight) + 0.2;
+  const side2 = adjustHeight(absHeight, nextHeight) + 0.2;
 
-  side1 += 0.2;
-  side2 += 0.2;
-
-  return [Number(side1.toFixed(2)), Number(side2.toFixed(2))];
+  return {
+    side1,
+    side2,
+  };
 };
 
 export const getInstancesData = (data: ContributionData) => {
@@ -62,9 +57,7 @@ export const getInstancesData = (data: ContributionData) => {
       const day = week.contributionDays[dayIndex]!;
       const multiplier = 0.1;
       const z = 4 - Number((7 - day.weekday).toFixed(2));
-      const weekNumber = getWeekNumber(day.date);
-      const offset = getMonthNumber(day.date);
-      const x = -(weekNumber + offset);
+      const { weekNumber, monthNumber } = getWeekAndMonthNumber(day.date);
       const absHeight = day.contributionCount * multiplier;
       const previousDayHeight =
         (week.contributionDays[dayIndex - 1]?.contributionCount ?? 0) *
@@ -73,15 +66,18 @@ export const getInstancesData = (data: ContributionData) => {
         (week.contributionDays[dayIndex + 1]?.contributionCount ?? 0) *
         multiplier;
 
-      const [side1, side2] = getSideLengths(
+      const { side1, side2 } = getSideLengths(
         absHeight,
         previousDayHeight,
         nextDayHeight
       );
 
+      const x = -(weekNumber + monthNumber);
+      const y = Math.max(side1, side2) / 2;
+
       res.push({
         args: [1, side1, side2, 1],
-        position: [x, Math.max(side1, side2) / 2, z],
+        position: [x, y, z],
         color: day.color,
       });
     }

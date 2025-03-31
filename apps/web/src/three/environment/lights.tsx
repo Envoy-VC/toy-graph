@@ -11,13 +11,6 @@ export const Lights = () => {
           intensity={1}
           color='#9ECE5F'
         />
-        <mesh position={directionalLightPosition}>
-          <sphereGeometry args={[0.5, 16, 16]} />
-          <meshBasicMaterial
-            color='white'
-            wireframe={true}
-          />
-        </mesh>
       </group>
     </>
   );

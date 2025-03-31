@@ -10,9 +10,6 @@ export function createTrapeziumShape(
 ) {
   const shape = new Shape();
   const radius = radius0 - eps;
-  const dip = side1 === side2 ? 0 : 0.05;
-  const insetY = radius * 2 + 3 * eps;
-  const insetX = eps;
 
   const slope = (side2 - side1) / width;
   const angle = Math.PI / 2 + Math.atan(slope);
