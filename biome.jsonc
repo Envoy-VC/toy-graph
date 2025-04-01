@@ -30,12 +30,17 @@
       }
     },
     {
-      "include": ["apps/web/src/env.js", "apps/web/src/three/**/*"],
+      "include": [
+        "apps/web/src/env.js",
+        "apps/web/src/three/**/*",
+        "packages/ecctrl/**/*"
+      ],
       "linter": {
         "rules": {
           "style": {
             // Needed for env naming convention
-            "useNamingConvention": "off"
+            "useNamingConvention": "off",
+            "noNamespaceImport": "off"
           }
         }
       }
