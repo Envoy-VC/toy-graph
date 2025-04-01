@@ -9,6 +9,7 @@ export const Experience = () => {
   return (
     <>
       <ActivityGraphText />
+
       <Stage
         castShadow={true}
         receiveShadow={true}

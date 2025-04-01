@@ -1,0 +1,40 @@
+{
+  "name": "@repo/ecctrl",
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "main": "./src/index.ts",
+  "scripts": {
+    "format": "pnpm biome format",
+    "format:write": "pnpm biome format --write"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/node": "^22",
+    "@types/react": "^19.0.12",
+    "@types/react-dom": "^19.0.4",
+    "@types/three": "0.174.0",
+    "klarity": "^0.0.2",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3"
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19"
+  },
+  "dependencies": {
+    "@dimforge/rapier3d-compat": "^0.15.0",
+    "@react-spring/three": "^9.7.5",
+    "@react-three/drei": "^10.0.5",
+    "@react-three/fiber": "^9.1.0",
+    "@react-three/rapier": "^2.0.0",
+    "leva": "^0.10.0",
+    "three": "0.174.0",
+    "zustand": "^5.0.3"
+  }
+}

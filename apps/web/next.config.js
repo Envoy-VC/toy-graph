@@ -2,7 +2,7 @@ import './src/env.js';
 
 /** @type {import("next").NextConfig} */
 const config = {
-  transpilePackages: ['three'],
+  transpilePackages: ['three', '@repo/ecctrl'],
   images: {
     remotePatterns: [
       {

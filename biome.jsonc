@@ -30,7 +30,7 @@
       }
     },
     {
-      "include": ["apps/web/src/env.js"],
+      "include": ["apps/web/src/env.js", "apps/web/src/three/**/*"],
       "linter": {
         "rules": {
           "style": {

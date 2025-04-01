@@ -14,6 +14,7 @@ export const Ground = () => {
           opacity={0.4}
         />
       </mesh>
+
       <Grid
         args={[30, 30]}
         position={[0, 0, 0]}
