@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import type * as THREE from 'three';
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import type { AnimationSet } from '~/types';
@@ -9,9 +9,9 @@ type GameState = {
   animationSet: AnimationSet;
   initializeAnimationSet: (animationSet: AnimationSet) => void;
   reset: () => void;
-  setMoveToPoint: (point: THREE.Vector3) => void;
+  setMoveToPoint: (point: THREE.Vector3 | null) => void;
   getMoveToPoint: () => {
-    moveToPoint: THREE.Vector3;
+    moveToPoint: THREE.Vector3 | null;
   };
 } & {
   [key in keyof AnimationSet]: () => void;
@@ -163,7 +163,7 @@ export const useGame = create(
       /**
        * Set/get point to move point
        */
-      setMoveToPoint: (point: THREE.Vector3) => {
+      setMoveToPoint: (point: THREE.Vector3 | null) => {
         set(() => {
           return { moveToPoint: point };
         });
@@ -171,7 +171,7 @@ export const useGame = create(
 
       getMoveToPoint: () => {
         return {
-          moveToPoint: get().moveToPoint ?? new THREE.Vector3(),
+          moveToPoint: get().moveToPoint,
         };
       },
     };

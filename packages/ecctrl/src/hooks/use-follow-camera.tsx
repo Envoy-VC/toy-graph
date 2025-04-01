@@ -5,7 +5,7 @@ import * as three from 'three';
 
 import type { UseFollowCameraProps } from '~/types';
 
-export const useFollowCam = ({
+export const useFollowCamera = ({
   disableFollowCam = false,
   disableFollowCamPos = undefined,
   disableFollowCamTarget = undefined,

@@ -160,8 +160,8 @@ importers:
   packages/ecctrl:
     dependencies:
       '@dimforge/rapier3d-compat':
-        specifier: ^0.15.0
-        version: 0.15.0
+        specifier: 0.14.0
+        version: 0.14.0
       '@react-spring/three':
         specifier: ^9.7.5
         version: 9.7.5(@react-three/fiber@9.1.0(@types/react@19.0.12)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(three@0.174.0))(react@19.1.0)(three@0.174.0)
@@ -424,9 +424,6 @@ packages:
 
   '@dimforge/rapier3d-compat@0.14.0':
     resolution: {integrity: sha512-/uHrUzS+CRQ+NQrrJCEDUkhwHlNsAAexbNXgbN9sHY+GwR+SFFAFrxRr8Llf5/AJZzqiLANdQIfJ63Cw4gJVqw==}
-
-  '@dimforge/rapier3d-compat@0.15.0':
-    resolution: {integrity: sha512-TRH9rmF6RJqvKt0xis6VkToJHz4Pf54IfYhKGWn7zkpTWPwVyQ4p9kjwrdm6jOfGn72MBrIbttzvDB/ZOqE7sg==}
 
   '@emnapi/runtime@1.4.0':
     resolution: {integrity: sha512-64WYIf4UYcdLnbKn/umDlNjQDSS8AgZrI/R9+x5ilkUVFxXcA1Ebl+gQLc/6mERA4407Xof0R7wEyEuj091CVw==}
@@ -3233,8 +3230,6 @@ snapshots:
       chalk: 5.4.1
 
   '@dimforge/rapier3d-compat@0.14.0': {}
-
-  '@dimforge/rapier3d-compat@0.15.0': {}
 
   '@emnapi/runtime@1.4.0':
     dependencies:
