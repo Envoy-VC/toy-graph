@@ -1,7 +1,7 @@
 import { Stage } from '../models';
-import { ActivityGraph } from './activity-graph';
 
 import { useActivityStore } from '~/stores';
+import { ActivityGraph } from './activity-graph';
 import { ActivityGraphText } from './text';
 
 export const Experience = () => {

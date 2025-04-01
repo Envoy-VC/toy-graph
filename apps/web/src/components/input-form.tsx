@@ -68,7 +68,7 @@ export const InputForm = () => {
             <Select
               value={year.toString()}
               onValueChange={(value) => setYear(Number(value))}
-              disabled={isPending || username.length === 0}
+              disabled={isPending}
             >
               <SelectTrigger className='w-[100px] rounded-lg border-2 border-black bg-[#ded096] text-neutral-700 shadow-none outline-none focus-visible:outline-none focus-visible:ring-0'>
                 <SelectValue placeholder='Year' />

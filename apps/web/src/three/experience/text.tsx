@@ -15,11 +15,11 @@ export const ActivityGraphText = () => {
           {data.year}
         </Text>
       </mesh>
-      <mesh position={[-30, 0.8, 4.5]}>
+      <mesh position={[-32, 0.8, 4.5]}>
         <Text
           rotation={[-32 * DEG2RAD, 0, 0]}
           fontWeight={600}
-          textAlign='right'
+          anchorX='left'
         >
           {data.username}
         </Text>
