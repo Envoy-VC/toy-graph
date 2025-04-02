@@ -25,6 +25,7 @@ export const InputForm = () => {
     data: prev,
     isInitialData,
     setIsInitialData,
+    setIsPhysicsEnabled,
   } = useActivityStore();
   const { mutateAsync, isPending, error } =
     api.github.getContributions.useMutation();
@@ -43,13 +44,21 @@ export const InputForm = () => {
       return;
     }
 
+    // Disable physics when the data is about to load
+    setIsPhysicsEnabled(false);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     setData(res.value);
     setIsInitialData(false);
+
+    // Enable physics after the data is loaded
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setIsPhysicsEnabled(true);
   };
 
   if (isInitialData) {
     return (
-      <div className='absolute top-6 right-1/2 z-[2] mx-auto flex w-full max-w-[20rem] translate-x-1/2 flex-col gap-4 sm:max-w-md md:max-w-lg lg:max-w-xl'>
+      <div className='absolute top-0 right-1/2 z-[2] mx-auto flex w-full max-w-[20rem] translate-x-1/2 flex-col gap-4 sm:max-w-md md:max-w-lg lg:max-w-xl'>
         <div className='mx-auto flex size-[10rem] items-center justify-center sm:size-[12rem] md:size-[14rem]'>
           <Logo width='100%' />
         </div>

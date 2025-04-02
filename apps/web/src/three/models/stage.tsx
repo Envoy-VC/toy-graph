@@ -1,4 +1,5 @@
 import type { ThreeElements } from '@react-three/fiber';
+import { RigidBody } from '@react-three/rapier';
 import type React from 'react';
 import { useMemo } from 'react';
 import { BufferAttribute, BufferGeometry, DoubleSide } from 'three';
@@ -89,18 +90,23 @@ export const Stage: React.FC<TruncatedPyramidStageProps> = ({
   }, [bottomWidth, bottomDepth, topWidth, topDepth, height]);
 
   return (
-    <mesh
-      geometry={geometry}
-      {...props}
+    <RigidBody
+      type='fixed'
+      colliders='trimesh'
     >
-      <meshPhysicalMaterial
-        color='#000000'
-        metalness={0.3}
-        roughness={0.8}
-        clearcoat={0.1}
-        clearcoatRoughness={0.2}
-        side={DoubleSide}
-      />
-    </mesh>
+      <mesh
+        geometry={geometry}
+        {...props}
+      >
+        <meshPhysicalMaterial
+          color='#000000'
+          metalness={0.3}
+          roughness={0.8}
+          clearcoat={0.1}
+          clearcoatRoughness={0.2}
+          side={DoubleSide}
+        />
+      </mesh>
+    </RigidBody>
   );
 };

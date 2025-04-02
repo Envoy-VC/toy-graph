@@ -17,7 +17,7 @@ export function useRoundedTrapeziumGeometry(
       depth: 0.8,
       bevelEnabled: true,
       bevelSegments: 4,
-      steps: 1,
+      steps: 2,
       bevelSize: 0.1 - eps,
       bevelThickness: 0.1,
       curveSegments: 4,
