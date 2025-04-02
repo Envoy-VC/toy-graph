@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
+import { useActivityStore } from '~/stores';
 import { Stage } from '../models';
+import { ActivityGraph } from './activity-graph';
 import { Character } from './character';
 import { ActivityGraphText } from './text';
-import { ActivityGraph } from './activity-graph';
-import { useActivityStore } from '~/stores';
 
 export const Experience = () => {
   const { data } = useActivityStore();
