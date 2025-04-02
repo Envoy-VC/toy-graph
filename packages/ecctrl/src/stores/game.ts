@@ -1,7 +1,7 @@
 import type * as THREE from 'three';
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
-import type { AnimationSet } from '~/types';
+import type { AnimationSet } from '../types';
 
 type GameState = {
   moveToPoint: THREE.Vector3 | null;

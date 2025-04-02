@@ -3,7 +3,7 @@ import { useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
 import * as three from 'three';
 
-import type { UseFollowCameraProps } from '~/types';
+import type { UseFollowCameraProps } from '../types';
 
 export const useFollowCamera = ({
   disableFollowCam = false,

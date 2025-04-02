@@ -26,6 +26,62 @@ const GET_CONTRIBUTIONS_QUERY = `query($username: String!, $from: DateTime!, $to
   }
 }`;
 
+const GET_CONTRIBUTIONS_FOR_DAY_QUERY = `query ($username: String!, $date: DateTime!) {
+  user(login: $username) {
+    contributionsCollection(from: $date, to: $date) {
+      commitContributionsByRepository {
+        repository {
+          name
+        }
+        contributions(first: 100) {
+          nodes {
+            occurredAt
+            commitCount
+          }
+        }
+      }
+      pullRequestContributions(first: 100) {
+        nodes {
+          occurredAt
+          pullRequest {
+            title
+            url
+            repository {
+              name
+            }
+          }
+        }
+      }
+      issueContributions(first: 100) {
+        nodes {
+          occurredAt
+          issue {
+            title
+            url
+            repository {
+              name
+            }
+          }
+        }
+      }
+      pullRequestReviewContributions(first: 100) {
+        nodes {
+          occurredAt
+          pullRequestReview {
+            pullRequest {
+              title
+              url
+              repository {
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}`;
+
 interface GetUserContributionsProps {
   username: string;
   year: number;

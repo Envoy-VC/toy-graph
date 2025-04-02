@@ -40,7 +40,7 @@ export interface EcctrlRigidBodyRef extends RapierRigidBody {
   rotateCharacterOnY?: (rad: number) => void;
 }
 
-export interface EcctrlProps extends RigidBodyProps {
+interface EcctrlProps extends RigidBodyProps {
   children?: ReactNode;
   debug?: boolean;
   capsuleHalfHeight?: number;
