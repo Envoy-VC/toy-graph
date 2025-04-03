@@ -1,5 +1,4 @@
 'use client';
-
 import { Canvas as ThreeCanvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
 import { Leva } from 'leva';
@@ -17,6 +16,8 @@ export const Canvas = () => {
           position: [-50, 20, 30],
           fov: 60,
         }}
+        style={{ position: 'absolute', inset: '0', touchAction: 'none' }}
+        gl={{ localClippingEnabled: true }}
         className='bg-[#E9E3C7]'
         onPointerDown={(e) => {
           if (e.pointerType === 'mouse') {

@@ -1,7 +1,7 @@
 import { Environment as ThreeEnvironment } from '@react-three/drei';
-import { Controls } from './controls';
 import { Ground } from './ground';
 import { Lights } from './lights';
+import { Performance } from './performance';
 
 export const Environment = () => {
   return (
@@ -12,7 +12,7 @@ export const Environment = () => {
       />
       <Ground />
       <Lights />
-      <Controls />
+      <Performance />
     </>
   );
 };
