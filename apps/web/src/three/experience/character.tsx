@@ -21,7 +21,7 @@ export const Character = () => {
   return (
     <KeyboardControls map={keyboardMap}>
       <Ecctrl
-        position={[-40, 1, 15]}
+        position={[-40, 3, 15]}
         rotation={[Math.PI / 2, 0, Math.PI / 2]}
         debug={true}
         animated={true}
