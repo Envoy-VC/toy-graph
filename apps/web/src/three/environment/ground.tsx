@@ -18,6 +18,7 @@ export const Ground = () => {
         <mesh
           receiveShadow={true}
           position={[0, -0.1, 0]}
+          renderOrder={1}
         >
           <boxGeometry args={[groundSize, 1, groundSize]} />
           <shadowMaterial

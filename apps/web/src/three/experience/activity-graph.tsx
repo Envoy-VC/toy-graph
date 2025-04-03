@@ -59,12 +59,11 @@ export const GroupInstance = ({ group }: GroupInstanceProps) => {
     <InstancedRigidBodies
       instances={instances}
       ref={rigidBodiesRef}
+      colliders='hull'
     >
       <Instances
         key={`${group.key}-${groupTraps.length}`}
         frustumCulled={false}
-        castShadow={true}
-        receiveShadow={true}
         geometry={geometry}
         limit={groupTraps.length}
         material={
@@ -81,9 +80,7 @@ export const GroupInstance = ({ group }: GroupInstanceProps) => {
           return (
             <>
               <Instance
-                castShadow={true}
-                receiveShadow={true}
-                key={`${key}-${i.toString()}`}
+                key={`${instances[i]?.key}`}
                 position={trap.position}
                 rotation={[0, Math.PI / 2, 0]}
               />
