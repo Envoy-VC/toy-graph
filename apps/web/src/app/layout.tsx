@@ -6,6 +6,7 @@ import { Toaster } from 'sonner';
 
 import '@repo/ui/globals.css';
 import { seo } from '~/lib/seo';
+import { ProviderTree } from '~/providers';
 
 export const metadata = seo;
 
@@ -16,10 +17,12 @@ const RootLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
       lang='en'
     >
       <body>
-        <TRPCReactProvider>
-          <main>{children}</main>
-        </TRPCReactProvider>
-        <Toaster richColors={true} />
+        <ProviderTree>
+          <TRPCReactProvider>
+            <main>{children}</main>
+          </TRPCReactProvider>
+          <Toaster richColors={true} />
+        </ProviderTree>
       </body>
     </html>
   );
