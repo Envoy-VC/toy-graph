@@ -47,13 +47,14 @@ export const InputForm = () => {
 
     // Disable physics when the data is about to load
     setIsPhysicsEnabled(false);
-    characterRef?.current?.setTranslation(new Vector3(-40, 5, 20), true);
+    characterRef?.current?.setTranslation(new Vector3(-40, 10, 20), true);
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     setData(res.value);
     setIsInitialData(false);
 
     // Enable physics after the data is loaded
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsPhysicsEnabled(true);
   };
 
