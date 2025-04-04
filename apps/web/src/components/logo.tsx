@@ -112,10 +112,10 @@ export const Logo = ({ width, height, ...rest }: LogoProps) => {
           width='127.84'
           height='117.44'
           filterUnits='userSpaceOnUse'
-          color-interpolation-filters='sRGB'
+          colorInterpolationFilters='sRGB'
         >
           <feFlood
-            flood-opacity='0'
+            floodOpacity='0'
             result='BackgroundImageFix'
           />
           <feColorMatrix

@@ -86,6 +86,7 @@ export const getInstancesData = (data: ContributionData) => {
         args: [1, side1, side2, 1],
         position: [x, y, z],
         color: day.color,
+        date: day.date,
       });
     }
   }

@@ -15,6 +15,7 @@ import { toast } from 'sonner';
 
 import { HomeIcon, Loader2, SearchIcon } from 'lucide-react';
 import { useState } from 'react';
+import { Vector3 } from 'three';
 import { useActivityStore } from '~/stores';
 
 const years = Array.from({ length: 2026 - 2016 }, (_, i) => 2016 + i).reverse();
@@ -22,7 +23,7 @@ const years = Array.from({ length: 2026 - 2016 }, (_, i) => 2016 + i).reverse();
 export const InputForm = () => {
   const {
     setData,
-    data: prev,
+    characterRef,
     isInitialData,
     setIsInitialData,
     setIsPhysicsEnabled,
@@ -46,13 +47,13 @@ export const InputForm = () => {
 
     // Disable physics when the data is about to load
     setIsPhysicsEnabled(false);
+    characterRef?.current?.setTranslation(new Vector3(-40, 5, 20), true);
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     setData(res.value);
     setIsInitialData(false);
 
     // Enable physics after the data is loaded
-    await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsPhysicsEnabled(true);
   };
 

@@ -18,7 +18,7 @@ export const ActivityGraph = ({ data }: { data: ContributionData }) => {
       {groups.map((group) => {
         return (
           <GroupInstance
-            key={`${group.key}-${group.instances.length}`}
+            key={`group-${group.key}-${group.instances.length}`}
             group={group}
           />
         );
@@ -49,6 +49,7 @@ export const GroupInstance = ({ group }: GroupInstanceProps) => {
         position: groupTraps[i]?.position,
         rotation: [0, Math.PI / 2, 0],
         type: 'fixed',
+        userData: { date: groupTraps[i]?.date },
       });
     }
 
@@ -57,12 +58,13 @@ export const GroupInstance = ({ group }: GroupInstanceProps) => {
 
   return (
     <InstancedRigidBodies
+      key={`rigid-instance--${key}-${groupTraps.length}`}
       instances={instances}
       ref={rigidBodiesRef}
       colliders='hull'
     >
       <Instances
-        key={`${group.key}-${groupTraps.length}`}
+        key={`instances-${key}-${groupTraps.length}`}
         frustumCulled={false}
         geometry={geometry}
         limit={groupTraps.length}

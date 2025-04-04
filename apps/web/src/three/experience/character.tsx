@@ -1,8 +1,9 @@
 import { KeyboardControls } from '@react-three/drei';
+import { Ecctrl, type EcctrlRigidBodyRef } from '@repo/ecctrl';
+import { useEffect, useRef } from 'react';
+import { degToRad } from 'three/src/math/MathUtils.js';
+import { useActivityStore } from '~/stores';
 import { CharacterModel } from '../models';
-
-import { Ecctrl } from '@repo/ecctrl';
-import { DEG2RAD } from 'three/src/math/MathUtils.js';
 
 const keyboardMap = [
   { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
@@ -18,12 +19,23 @@ const keyboardMap = [
 ];
 
 export const Character = () => {
+  // biome-ignore lint/style/noNonNullAssertion: safe
+  const characterRef = useRef<EcctrlRigidBodyRef>(null!);
+  const { setCharacterRef, characterColliderRef } = useActivityStore();
+
+  useEffect(() => {
+    if (characterRef.current) {
+      setCharacterRef(characterRef);
+    }
+  }, [setCharacterRef]);
+
   return (
     <KeyboardControls map={keyboardMap}>
       <Ecctrl
-        position={[-40, 10, 15]}
-        rotation={[Math.PI / 2, 0, Math.PI / 2]}
+        ref={characterRef}
+        position={[-40, 10, 20]}
         debug={true}
+        colliders={false}
         animated={true}
         followLight={true}
         springK={2}
@@ -32,8 +44,8 @@ export const Character = () => {
         autoBalanceDampingC={0.04}
         autoBalanceSpringOnY={0.7}
         autoBalanceDampingOnY={0.05}
-        camInitDir={{ x: 10 * DEG2RAD, y: 150 * DEG2RAD }}
-        characterInitDir={120 * DEG2RAD}
+        camInitDir={{ x: degToRad(10), y: degToRad(150) }}
+        characterInitDir={degToRad(120)}
       >
         <CharacterModel />
       </Ecctrl>
