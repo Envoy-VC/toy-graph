@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import { useActivityStore } from '~/stores';
 import { Stage } from '../models';
 import { ActivityGraph } from './activity-graph';
@@ -8,7 +7,7 @@ import { ActivityGraphText } from './text';
 export const Experience = () => {
   const { data } = useActivityStore();
   return (
-    <Suspense fallback={null}>
+    <>
       <Character />
       <ActivityGraphText />
       <Stage
@@ -28,6 +27,6 @@ export const Experience = () => {
       >
         <ActivityGraph data={data} />
       </mesh>
-    </Suspense>
+    </>
   );
 };

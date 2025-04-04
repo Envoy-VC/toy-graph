@@ -1,15 +1,23 @@
 'use client';
+
 import { Canvas as ThreeCanvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
 import { Leva } from 'leva';
+import dynamic from 'next/dynamic';
 import { useActivityStore } from '~/stores';
 import { Environment } from './environment';
 import { Experience } from './experience';
+
+const Joystick = dynamic(
+  () => import('./experience/joystick').then((m) => m.Joystick),
+  { ssr: false }
+);
 
 export const Canvas = () => {
   const { isPhysicsEnabled } = useActivityStore();
   return (
     <>
+      <Joystick />
       <ThreeCanvas
         shadows={true}
         camera={{
